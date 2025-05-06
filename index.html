@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .light-mode {
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        .dark-mode {
+            background-color: #0a192f;
+            color: #f0f8ff;
+        }
+
+        .error-container {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+
+        .error-code {
+            font-size: 6rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .light-mode .error-code {
+            color: #4682b4;
+        }
+
+        .dark-mode .error-code {
+            color: #1e3a8a;
+        }
+
+        .error-message {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .funny-caption {
+            font-style: italic;
+            margin: 2rem 0;
+            opacity: 0.8;
+        }
+
+        .home-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #4682b4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .home-link:hover {
+            background-color: #3a6d99;
+        }
+
+        .dark-mode .home-link {
+            background-color: #1e3a8a;
+        }
+
+        .dark-mode .home-link:hover {
+            background-color: #152c5e;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            background-color: #4682b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: #3a6d99;
+        }
+
+        .dark-mode .theme-toggle {
+            background-color: #1e3a8a;
+        }
+
+        .dark-mode .theme-toggle:hover {
+            background-color: #152c5e;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="error-container">
+        <h1 class="error-code">404</h1>
+        <p class="error-message">Oops! Page not found</p>
+        <p class="funny-caption">
+            You'te lost. I'm lost. We're both lost.<br>
+        </p>
+        <a href="/" class="home-link">Take me home - keep in mind this won't work right now</a>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+            
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                button.textContent = 'Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                button.textContent = 'Dark Mode';
+            }
+            
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            const body = document.body;
+            const button = document.querySelector('.theme-toggle');
+            
+            if (isDarkMode) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                button.textContent = 'Light Mode';
+            }
+        });
+    </script>
+</body>
+</html>
