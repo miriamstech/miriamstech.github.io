@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Document</title>
+</head>
+<body>
+  <main class="card">
+    <h1><marquee>i'll predict tomorrow for you babes</marquee></h1>
+    <p>Click the button and I'll tell you how your day will be tomorrow xx</p>
+    <button id="predict">Predict</button>
+    <div id="result" aria-live="polite" role="status"></div>
+  </main>
+
+  <script>
+    const btn = document.getElementById('predict');
+    const result = document.getElementById('result');
+
+    function getTomorrowDayName() {
+      const tomorrow = new Date();
+    
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      return tomorrow.toLocaleDateString(undefined, { weekday: 'long' });
+    }
+
+    btn.addEventListener('click', () => {
+      const dayName = getTomorrowDayName();
+      result.textContent = `Tomorrow is ${dayName}.`;
+    });
+  </script>
+</body>
+</html>
