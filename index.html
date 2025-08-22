@@ -1,33 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
 </head>
 <body>
-  <main class="card">
-    <h1><marquee>i'll predict tomorrow for you babes</marquee></h1>
-    <p>Click the button and I'll tell you how your day will be tomorrow xx</p>
-    <button id="predict">Predict</button>
-    <div id="result" aria-live="polite" role="status"></div>
-  </main>
-
-  <script>
-    const btn = document.getElementById('predict');
-    const result = document.getElementById('result');
-
-    function getTomorrowDayName() {
-      const tomorrow = new Date();
-    
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      return tomorrow.toLocaleDateString(undefined, { weekday: 'long' });
-    }
-
-    btn.addEventListener('click', () => {
-      const dayName = getTomorrowDayName();
-      result.textContent = `Tomorrow is ${dayName}.`;
-    });
-  </script>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Miriam</h1>
+    <p><a href="https://www.youtube.com/">YouTube</a></p>
+    <p><a href="https://www.tiktok.com/@miriamsspace">TikTok</a></p>
+    <p><a href="https://www.xiaohongshu.com">Xiaohongshu</a></p>
+    <footer><p><a href="credits.html">Website Credits</a></p></footer>
 </body>
 </html>
