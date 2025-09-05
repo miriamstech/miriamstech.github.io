@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>miriam's space media loader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-color: #313f72;
+            --liquid-glass-color: rgba(255, 255, 255, 0.1);
+            --liquid-glass-border-color: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+            --button-bg: #4a548c;
+            --button-hover-bg: #5a649c;
+            --close-button-bg: #ff475656;
+            --close-button-hover-bg: #ff475656;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 800px;
+            padding: 1.5rem;
+            text-align: center;
+            background-color: transparent;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .file-input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+            width: fit-content;
+            margin: 0 auto;
+        }
+        
+        .file-input-label {
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .file-input-label:hover {
+            background-color: var(--button-hover-bg);
+        }
+        
+        #file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+        }
+
+        .media-viewer {
+            position: relative;
+            width: 100%;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--liquid-glass-color);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .media-viewer.drag-over {
+            box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .placeholder-text {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            user-select: none;
+            padding: 1rem;
+        }
+
+        .media-content {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            user-select: none;
+        }
+        
+        .media-content.active {
+            display: block;
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--close-button-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 50%;
+            width: 2.5rem;
+            height: 2.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .close-button:hover {
+            background-color: var(--close-button-hover-bg);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>miriam's space media loader</h1>
+        <p>drag and drop a file into the box or chose a file from your file manager below :)</p>
+        
+        <div class="file-input-container">
+            <input type="file" id="file-input" accept="image/*,video/*">
+            <span class="file-input-label">Choose File</span>
+        </div>
+        
+        <div class="media-viewer" id="media-viewer">
+            <button class="close-button" id="close-button">X</button>
+            <p class="placeholder-text" id="placeholder-text">the file you choose will appear here :)</p>
+            <img class="media-content" id="image-display" src="#" alt="Selected image">
+            <video class="media-content" id="video-display" controls></video>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('file-input');
+            const placeholderText = document.getElementById('placeholder-text');
+            const imageDisplay = document.getElementById('image-display');
+            const videoDisplay = document.getElementById('video-display');
+            const mediaViewer = document.getElementById('media-viewer');
+            const closeButton = document.getElementById('close-button');
+
+            const handleFile = (file) => {
+                if (!file) {
+                    return;
+                }
+
+                const fileURL = URL.createObjectURL(file);
+
+                placeholderText.style.display = 'none';
+                imageDisplay.classList.remove('active');
+                videoDisplay.classList.remove('active');
+                closeButton.style.display = 'flex';
+
+                if (file.type.startsWith('image/')) {
+                    imageDisplay.src = fileURL;
+                    imageDisplay.classList.add('active');
+                    videoDisplay.pause();
+                    videoDisplay.removeAttribute('src');
+
+                } else if (file.type.startsWith('video/')) {
+                    videoDisplay.src = fileURL;
+                    videoDisplay.classList.add('active');
+                    imageDisplay.removeAttribute('src');
+                    
+                } else {
+                    placeholderText.textContent = 'Unsupported file type.';
+                    placeholderText.style.display = 'block';
+                    closeButton.style.display = 'none';
+                    imageDisplay.removeAttribute('src');
+                    videoDisplay.removeAttribute('src');
+                }
+            };
+            
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                handleFile(file);
+            });
+
+            closeButton.addEventListener('click', () => {
+                imageDisplay.classList.remove('active');
+                videoDisplay.classList.remove('active');
+                closeButton.style.display = 'none';
+
+                imageDisplay.src = '#';
+                videoDisplay.pause();
+                videoDisplay.removeAttribute('src');
+                fileInput.value = '';
+
+                placeholderText.textContent = 'The selected media will appear here.';
+                placeholderText.style.display = 'block';
+            });
+            
+            mediaViewer.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                mediaViewer.classList.add('drag-over');
+            });
+
+            mediaViewer.addEventListener('dragleave', () => {
+                mediaViewer.classList.remove('drag-over');
+            });
+
+            mediaViewer.addEventListener('drop', (e) => {
+                e.preventDefault();
+                mediaViewer.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                handleFile(file);
+            });
+        });
+    </script>
+</body>
+</html>
