@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Miriam's Space</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#da7758', 
+                        'cosy-bg': '#fcfaf8', 
+                        'dark-text': '#403d39',
+                        'dark-bg': '#33312e', 
+                        'dark-elevated': '#403d39', 
+                        'dark-text-main': '#fcfaf8', 
+                    },
+                    fontFamily: {
+                        'sans': ['Lora', 'serif'], 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Lora', serif;
+        }
+        .message-text {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            min-height: 4em;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            white-space: pre-wrap;
+        }
+        .message-text.is-visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-cosy-bg text-dark-text dark:bg-dark-bg dark:text-dark-text-main min-h-screen flex flex-col antialiased transition-colors duration-300">
+
+    <nav class="w-full bg-white border-b border-gray-200 dark:bg-dark-elevated dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4"> 
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://kappa.lol/Elgflf" alt="Favicon" class="w-7 h-7 rounded-md flex-shrink-0"> 
+                <span class="text-xl font-semibold text-dark-text dark:text-dark-text-main transition-colors duration-300">Miriam's Space</span>
+            </a>
+
+            <div class="flex items-center gap-8"> 
+                <a href="index.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">home</a>
+                <a href="contact.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">contact me</a>
+                <a href="stuff-i-use.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">stuff i use</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="w-full flex-grow flex flex-col items-center justify-center px-4 py-12">
+        <div class="max-w-lg text-center"> 
+            <h1 class="text-5xl font-bold text-dark-text dark:text-dark-text-main transition-colors duration-300 mb-8">
+                404 error:
+            </h1>
+            <div id="message" class="message-text text-xl text-dark-text dark:text-dark-text-main transition-colors duration-300"></div>
+        </div>
+    </main>
+
+    <label for="theme-toggle" class="fixed bottom-8 right-8 z-10 inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="theme-toggle" class="sr-only peer">
+        <div class="relative w-11 h-6 
+                    bg-gray-200 
+                    dark:bg-gray-600 
+                    peer-checked:bg-accent
+                    rounded-full 
+                    after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                    after:bg-white after:border-gray-300 after:border after:rounded-full 
+                    after:h-5 after:w-5 
+                    after:transition-all peer-checked:after:translate-x-full">
+        </div>
+    </label>
+
+
+    <script>
+        const messages = [
+            `404 page not found.`,
+
+            `we can't find what you're looking for.\nit's a digital dead end.`,
+
+            `404 page not found.`,
+
+            `you don't need to be on this page anymore...`,
+
+            `this place is not for you.\nlet's just pretend this never happened.`,
+
+            `404 page not found.`,
+
+            `if you actually think this site is meant to be here,\nthen contact me :)`,
+
+            `try the homepage.\nit's a much better place to be.`
+        ];
+        let currentIndex = 0;
+        const messageElement = document.getElementById('message');
+        
+        function updateMessage() {
+            if (!messageElement) return;
+            messageElement.classList.remove('is-visible');
+            setTimeout(() => {
+                currentIndex = (currentIndex + 1) % messages.length;
+                messageElement.textContent = messages[currentIndex];
+                messageElement.classList.add('is-visible');
+            }, 500); 
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (messageElement) {
+                messageElement.textContent = messages[0];
+                messageElement.classList.add('is-visible');
+                setInterval(updateMessage, 5000); 
+            }
+        });
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        function applyInitialTheme() {
+            const storedTheme = localStorage.getItem('theme');
+
+            if (storedTheme === 'dark') {
+                htmlElement.classList.add('dark');
+                themeToggle.checked = true;
+            } else {
+                htmlElement.classList.remove('dark');
+                themeToggle.checked = false;
+            }
+        }
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        applyInitialTheme();
+    </script>
+
+</body>
+</html>

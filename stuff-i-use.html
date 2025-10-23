@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>Stuff I Use - Miriam's Space</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#da7758', 
+                        'cosy-bg': '#fcfaf8', 
+                        'dark-text': '#403d39',
+                        'dark-bg': '#33312e', 
+                        'dark-elevated': '#403d39', 
+                        'dark-text-main': '#fcfaf8', 
+                    },
+                    fontFamily: {
+                        'sans': ['Lora', 'serif'], 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Lora', serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-cosy-bg text-dark-text dark:bg-dark-bg dark:text-dark-text-main min-h-screen flex flex-col antialiased transition-colors duration-300">
+
+    <nav class="w-full bg-white border-b border-gray-200 dark:bg-dark-elevated dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4"> 
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="https://kappa.lol/Elgflf" alt="Favicon" class="w-7 h-7 rounded-md flex-shrink-0"> 
+                <span class="text-xl font-semibold text-dark-text dark:text-dark-text-main transition-colors duration-300">Miriam's Space</span>
+            </a>
+
+            <div class="flex items-center gap-8"> 
+                <a href="index.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">home</a>
+                <a href="contact.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">contact me</a>
+                <a href="stuff-i-use.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">stuff i use</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="w-full flex-grow flex flex-col items-center px-4 py-12">
+        <div class="max-w-3xl w-full text-left"> 
+            <h1 class="text-5xl font-bold text-dark-text dark:text-dark-text-main transition-colors duration-300 mb-8">
+                Stuff I Use
+            </h1>
+
+            <div class="flex flex-row gap-4 mb-12">
+                <a href="#software"
+                   class="inline-block px-6 py-3 bg-white rounded-xl shadow-sm border-2 border-transparent text-lg font-semibold text-dark-text dark:bg-dark-elevated dark:text-dark-text-main transition-all duration-300 ease-in-out hover:shadow-md hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent">
+                    Software
+                </a>
+                <a href="#hardware"
+                   class="inline-block px-6 py-3 bg-white rounded-xl shadow-sm border-2 border-transparent text-lg font-semibold text-dark-text dark:bg-dark-elevated dark:text-dark-text-main transition-all duration-300 ease-in-out hover:shadow-md hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent">
+                    Hardware
+                </a>
+            </div>
+
+            <div class="space-y-12">
+                
+                <section id="software" class="scroll-mt-24">
+                    <h2 class="text-3xl font-semibold text-dark-text dark:text-dark-text-main mb-4">Software</h2>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">
+                    </p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- microsoft office pro plus 2021</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- claude ai </p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- google drive</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- google chrome</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- open broadcasting software (/obs)</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- ipad os 26</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- origin os 6</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- canva</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- notion</p>
+                </section>
+                
+                <section id="hardware" class="scroll-mt-24">
+                    <h2 class="text-3xl font-semibold text-dark-text dark:text-dark-text-main mb-4">Hardware</h2>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- computer: m2 mac mini, 8gb ram  256gb storage</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- mic: trust gxt212 mico (please do not buy this)</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- phone/camera: iqoo z9 turbo, 12/256gb model.</p>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- ipad - ipad 10th generation, 4/64gb model.</p>
+                    <br>
+                    <p>if you have any questions about anything else i own/use contact me via my contact email, contact@miriams.space</p>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <label for="theme-toggle" class="fixed bottom-8 right-8 z-10 inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="theme-toggle" class="sr-only peer">
+        <div class="relative w-11 h-6 
+                    bg-gray-200 
+                    dark:bg-gray-600 
+                    peer-checked:bg-accent
+                    rounded-full 
+                    after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                    after:bg-white after:border-gray-300 after:border after:rounded-full 
+                    after:h-5 after:w-5 
+                    after:transition-all peer-checked:after:translate-x-full">
+        </div>
+    </label>
+
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        function applyInitialTheme() {
+            const storedTheme = localStorage.getItem('theme');
+
+            if (storedTheme === 'dark') {
+                htmlElement.classList.add('dark');
+                themeToggle.checked = true;
+            } else {
+                htmlElement.classList.remove('dark');
+                themeToggle.checked = false;
+            }
+        }
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        applyInitialTheme();
+    </script>
+
+</body>
+</html>
