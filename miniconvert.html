@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>miniconvert - Miriam's Space</title>
+        
+    <script src="https://cdn.tailwindcss.com"></script>
+        
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+        
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#da7758', 
+                        'cosy-bg': '#fcfaf8', 
+                        'dark-text': '#403d39',
+                        'dark-bg': '#33312e', 
+                        'dark-elevated': '#403d39', 
+                        'dark-text-main': '#fcfaf8', 
+                    },
+                    fontFamily: {
+                        'sans': ['Lora', 'serif'], 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lora', serif;
+        }
+        #projects-dropdown-toggle svg {
+            transition: transform 0.2s ease-in-out;
+        }
+        #projects-dropdown-toggle.open svg {
+            transform: rotate(180deg);
+        }
+        #drop-zone {
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+        #drop-zone.dragover {
+            background-color: #fcfaf8;
+            border-color: #da7758;
+        }
+        .dark #drop-zone.dragover {
+            background-color: #403d39;
+        }
+        #file-input {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        #file-input + label {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-cosy-bg text-dark-text dark:bg-dark-bg dark:text-dark-text-main min-h-screen flex flex-col antialiased transition-colors duration-300">
+
+    <nav class="w-full bg-white border-b border-gray-200 dark:bg-dark-elevated dark:border-gray-700 transition-colors duration-300 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-8 py-4">
+             <a href="index.html" class="flex items-center gap-3">
+                <img src="https://kappa.lol/Elgflf" alt="Favicon" class="w-7 h-7 rounded-md flex-shrink-0" onerror="this.src='https://placehold.co/28x28/da7758/fcfaf8?text=M'"/>
+                 <span class="text-xl font-semibold text-dark-text dark:text-dark-text-main transition-colors duration-300">Miriam's Space</span>
+            </a>
+            
+            <div class="flex items-center gap-8">
+                 <a href="index.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">home</a>
+                
+                <div class="relative" id="projects-dropdown-container">
+                    <button id="projects-dropdown-toggle" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200 flex items-center gap-1">
+                        <span>projects</span>
+                        <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div id="projects-dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-dark-elevated rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 py-1 z-50">
+                        <a href="miniconvert.html" class="block px-4 py-2 text-dark-text dark:text-dark-text-main hover:bg-cosy-bg dark:hover:bg-dark-bg transition-colors duration-200">miniconvert</a>
+                    </div>
+                </div>
+                <a href="contact.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">contact me</a>
+                <a href="stuff-i-use.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">stuff i use</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="w-full flex-grow flex flex-col items-center px-4 py-12">
+        <div class="w-full max-w-2xl">
+            <h1 class="text-4xl font-bold text-dark-text dark:text-dark-text-main transition-colors duration-300 mb-8 text-center">
+                miniconvert
+            </h1>
+            
+            <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border-2 border-transparent p-6 sm:p-10 transition-colors duration-300">
+                <div class="mb-6">
+                    <input type="file" id="file-input" accept="image/*">
+                    <label for="file-input" id="drop-zone" class="w-full h-48 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex flex-col justify-center items-center text-center p-4">
+                        <span class="font-semibold text-lg">click to select an image</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">or drag and drop it here</span>
+                        <span id="file-name" class="font-semibold text-accent mt-2"></span>
+                    </label>
+                </div>
+
+                <div id="preview-container" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-2">preview</h3>
+                        <img id="image-preview" src="" alt="image preview" class="w-full h-auto rounded-lg shadow-md bg-gray-100 dark:bg-gray-700">
+                    </div>
+
+                    <div>
+                        <div class="mb-4">
+                            <label for="format-select" class="block text-lg font-semibold mb-2">convert to:</label>
+                            <select id="format-select" class="w-full p-3 rounded-lg bg-cosy-bg dark:bg-dark-bg border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-accent">
+                                <option value="image/png">png</option>
+                                <option value="image/jpeg">jpg</option>
+                                <option value="image/webp">webp</option>
+                                <option value="image/bmp">bmp</option>
+                                <option value="image/gif">gif</option>
+                            </select>
+                        </div>
+                        
+                        <div id="quality-container" class="mb-6">
+                            <label for="quality-slider" class="block text-lg font-semibold mb-2">quality: <span id="quality-value">90</span>%</label>
+                            <input type="range" id="quality-slider" min="10" max="100" value="90" class="w-full h-2 bg-gray-200 dark:bg-gray-600 rounded-lg appearance-none cursor-pointer" style="accent-color: #da7758;">
+                        </div>
+
+                        <p id="status-message" class="text-sm text-center mb-4 h-5"></p>
+
+                        <a id="download-btn" class="hidden block mx-auto text-center p-4 bg-transparent border-2 border-accent text-accent font-bold rounded-lg shadow-md hover:bg-accent hover:text-white transition-all duration-200" href="#" download="converted-image.png">
+                            download converted image
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <label for="theme-toggle" class="fixed bottom-8 right-8 z-10 inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="theme-toggle" class="sr-only peer">
+        <div class="relative w-11 h-6 
+                    bg-gray-200 
+                    dark:bg-gray-600 
+                    peer-checked:bg-accent
+                    rounded-full 
+                    after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+                    after:bg-white after:border-gray-300 after:border after:rounded-full 
+                    after:h-5 after:w-5 
+                    after:transition-all peer-checked:after:translate-x-full">
+        </div>
+    </label>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        function applyInitialTheme() {
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme === 'dark') {
+                htmlElement.classList.add('dark');
+                themeToggle.checked = true;
+            } else {
+                htmlElement.classList.remove('dark');
+                themeToggle.checked = false;
+            }
+        }
+
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        applyInitialTheme();
+
+        const dropdownToggle = document.getElementById('projects-dropdown-toggle');
+        const dropdownMenu = document.getElementById('projects-dropdown-menu');
+        const dropdownContainer = document.getElementById('projects-dropdown-container');
+
+        if (dropdownToggle && dropdownMenu) {
+            dropdownToggle.addEventListener('click', (event) => {
+                event.stopPropagation();
+                dropdownMenu.classList.toggle('hidden');
+                dropdownToggle.classList.toggle('open');
+            });
+            window.addEventListener('click', (event) => {
+                if (!dropdownContainer.contains(event.target)) {
+                    dropdownMenu.classList.add('hidden');
+                    dropdownToggle.classList.remove('open');
+                }
+            });
+        }
+
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const fileNameDisplay = document.getElementById('file-name');
+        const previewContainer = document.getElementById('preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const formatSelect = document.getElementById('format-select');
+        const qualityContainer = document.getElementById('quality-container');
+        const qualitySlider = document.getElementById('quality-slider');
+        const qualityValue = document.getElementById('quality-value');
+        const downloadBtn = document.getElementById('download-btn');
+        const statusMessage = document.getElementById('status-message');
+
+        let originalFile = null;
+        let originalImage = new Image();
+
+        fileInput.addEventListener('change', (e) => {
+            handleFile(e.target.files[0]);
+        });
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                fileInput.files = e.dataTransfer.files;
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (file && file.type.startsWith('image/')) {
+                originalFile = file;
+                fileNameDisplay.textContent = file.name;
+                statusMessage.textContent = 'loading preview...';
+                downloadBtn.classList.add('hidden');
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    originalImage.src = e.target.result;
+                    originalImage.onload = () => {
+                        imagePreview.src = e.target.result;
+                        previewContainer.classList.remove('hidden');
+                        statusMessage.textContent = '';
+                        updateConversion();
+                    };
+                    originalImage.onerror = () => {
+                        statusMessage.textContent = 'error: could not load image preview.';
+                        previewContainer.classList.add('hidden');
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else {
+                originalFile = null;
+                fileNameDisplay.textContent = '';
+                previewContainer.classList.add('hidden');
+                statusMessage.textContent = 'please select a valid image file.';
+            }
+        }
+
+        formatSelect.addEventListener('change', updateConversion);
+        qualitySlider.addEventListener('input', () => {
+            qualityValue.textContent = qualitySlider.value;
+            updateConversion();
+        });
+
+        function updateConversion() {
+            if (!originalImage.src) return;
+
+            const targetFormat = formatSelect.value;
+            const targetExtension = targetFormat.split('/')[1];
+
+            if (targetFormat === 'image/jpeg' || targetFormat === 'image/webp') {
+                qualityContainer.classList.remove('hidden');
+            } else {
+                qualityContainer.classList.add('hidden');
+            }
+            
+            statusMessage.textContent = 'converting...';
+
+            setTimeout(() => {
+                try {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = originalImage.naturalWidth;
+                    canvas.height = originalImage.naturalHeight;
+                    const ctx = canvas.getContext('2d');
+                    
+                    ctx.drawImage(originalImage, 0, 0);
+                    
+                    let convertedDataUrl;
+                    if (targetFormat === 'image/jpeg' || targetFormat === 'image/webp') {
+                        const quality = parseInt(qualitySlider.value, 10) / 100;
+                        convertedDataUrl = canvas.toDataURL(targetFormat, quality);
+                    } else {
+                        convertedDataUrl = canvas.toDataURL(targetFormat);
+                    }
+
+                    downloadBtn.href = convertedDataUrl;
+                    const baseName = originalFile.name.split('.').slice(0, -1).join('.');
+                    downloadBtn.download = `${baseName}.${targetExtension}`;
+                    
+                    downloadBtn.classList.remove('hidden');
+                    statusMessage.textContent = 'ready to download!';
+
+                } catch (error) {
+                    console.error("Conversion failed:", error);
+                    statusMessage.textContent = 'error: conversion failed.';
+                    downloadBtn.classList.add('hidden');
+                }
+            }, 50);
+        }
+
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
