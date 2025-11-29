@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Me - Miriam's Space</title>
+    <title>Game Offers - Miriam's Space</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -36,6 +36,9 @@
         body {
             font-family: 'Lora', serif;
         }
+        html {
+            scroll-behavior: smooth;
+        }
         #projects-dropdown-toggle svg {
             transition: transform 0.2s ease-in-out;
         }
@@ -52,7 +55,7 @@
                 <img src="https://kappa.lol/Elgflf" alt="Favicon" class="w-7 h-7 rounded-md flex-shrink-0" onerror="this.src='https://placehold.co/28x28/da7758/fcfaf8?text=M'"/>
                  <span class="text-xl font-semibold text-dark-text dark:text-dark-text-main transition-colors duration-300">Miriam's Space</span>
             </a>
-            
+
             <div class="flex items-center gap-8">
                  <a href="index.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">home</a>
                 
@@ -68,21 +71,46 @@
                         <a href="offers.html" class="block px-4 py-2 text-dark-text dark:text-dark-text-main hover:bg-cosy-bg dark:hover:bg-dark-bg transition-colors duration-200">game offers</a>
                     </div>
                 </div>
+                
                 <a href="contact.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">contact me</a>
                 <a href="stuff-i-use.html" class="text-lg text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">stuff i use</a>
             </div>
         </div>
     </nav>
 
-    <main class="w-full flex-grow flex flex-col items-center justify-center px-4 py-12">
-        <div class="max-w-lg text-center"> 
+    <main class="w-full flex-grow flex flex-col items-center px-4 py-12">
+        <div class="max-w-3xl w-full text-left"> 
             <h1 class="text-5xl font-bold text-dark-text dark:text-dark-text-main transition-colors duration-300 mb-8">
-                contact me:
+                game offers
             </h1>
-            <p class="text-xl text-dark-text dark:text-dark-text-main transition-colors duration-300">
-                you can contact me through tiktok dms (@miriamsspace), or through email, at 
-                <a href="mailto:inbox@miriams.space" class="underline hover:text-accent transition-colors duration-200">inbox@miriams.space</a>
-            </p>
+
+            <div class="flex flex-row gap-4 mb-12">
+                <a href="#adopt-me"
+                   class="inline-block px-6 py-3 bg-white rounded-xl shadow-sm border-2 border-transparent text-lg font-semibold text-dark-text dark:bg-dark-elevated dark:text-dark-text-main transition-all duration-300 ease-in-out hover:shadow-md hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent">
+                    adopt me
+                </a>
+                <a href="#other"
+                   class="inline-block px-6 py-3 bg-white rounded-xl shadow-sm border-2 border-transparent text-lg font-semibold text-dark-text dark:bg-dark-elevated dark:text-dark-text-main transition-all duration-300 ease-in-out hover:shadow-md hover:border-accent dark:hover:border-accent hover:text-accent dark:hover:text-accent">
+                    other
+                </a>
+            </div>
+
+            <div class="space-y-12">
+                
+                <section id="adopt-me" class="scroll-mt-24">
+                    <h2 class="text-3xl font-semibold text-dark-text dark:text-dark-text-main mb-4">adopt me</h2>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- none at the mo' x</p>
+                <br>
+
+                <section id="other" class="scroll-mt-24">
+                    <h2 class="text-3xl font-semibold text-dark-text dark:text-dark-text-main mb-4">other</h2>
+                    <p class="text-lg text-dark-text dark:text-dark-text-main">- well if theres none in adopt me theres gonna be none here is there x</p>
+                    <br>
+                    <p>most offers are completed during tiktok lives. feel free to stop by, <br> offer, etc!</p>
+                    <p>my adopt me private server can be joined through this link: <a href="https://www.roblox.com/share?code=15a915dca75ff744b2e4eb71ba1c046b&type=Server" class="text-dark-text dark:text-dark-text-main hover:text-accent dark:hover:text-accent transition-colors duration-200">https://www.roblox.com/share?code=15a915dca75ff744b2e4eb71ba1c046b&type=Server</a></p>
+                </section>
+
+            </div>
         </div>
     </main>
 
@@ -126,7 +154,7 @@
                 localStorage.setItem('theme', 'light');
             }
         });
-        
+
         const dropdownToggle = document.getElementById('projects-dropdown-toggle');
         const dropdownMenu = document.getElementById('projects-dropdown-menu');
         const dropdownContainer = document.getElementById('projects-dropdown-container');
@@ -149,5 +177,5 @@
     </script>
 
 </body>
-
 </html>
+
